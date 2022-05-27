@@ -1,0 +1,18 @@
+model #Modelo del Examen con una Binamial
+{
+#Likelihood
+for (i in 1:n) {
+	y[i] ~ dbin(p[i],ne[i])
+	mu[i]<-ne[i]*p[i]
+	cloglog(p[i])<-beta[1]+beta[2]*x[i]
+	}
+#Priors 
+for (j in 1:2) { beta[j] ~ dnorm(0,0.001) }
+#Prediction 1
+for (i in 1:n) { yf1[i] ~ dbin(p[i],ne[i]) }
+#Prediction 2
+	yf2 ~ dbin(pf,nef) 
+	muf<-nef*pf
+	cloglog(pf)<-beta[1]+beta[2]*xf	
+	
+	}
